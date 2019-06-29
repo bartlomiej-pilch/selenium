@@ -12,8 +12,15 @@ using System.Threading.Tasks;
 
 namespace swd
 {
-    public class FirstTest : Hooks
+    [TestFixture]
+    [Parallelizable]
+    public class FirefoxTesting : Hooks
     {
+        public FirefoxTesting() : base(BrowserType.FF)
+        {
+
+        }
+
         //[Test]
         public void osomTest()
         {
@@ -56,7 +63,39 @@ namespace swd
         [Test]
         public void jsTricksTest()
         {
-            IWebDriver driver = new ChromeDriver();
+            //IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://nhl.com");
+
+            //
+            //wait setup
+            TimeSpan span = new TimeSpan(0, 0, 10);
+            WebDriverWait wait = new WebDriverWait(driver, span);
+
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Official Site of the National Hockey League | NHL.com"));
+
+            Debug.WriteLine("NHL main page opened biatch!");
+
+            Assert.AreEqual(driver.Title, "Official Site of the National Hockey League | NHL.com");
+
+            //IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+
+
+            driver.Quit();
+        }
+    }
+
+    [TestFixture]
+    [Parallelizable]
+    public class ChromeTesting : Hooks
+    {
+        public ChromeTesting() : base(BrowserType.Chrome)
+        {
+        }
+
+        [Test]
+        public void jsTricksTest()
+        {
+            //IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://nhl.com");
 
             //

@@ -1,17 +1,30 @@
-﻿using OpenQA.Selenium.Firefox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+
 
 namespace swd
 {
+    public enum BrowserType
+    {
+        Chrome,
+        FF
+    } 
+
+    [TestFixture]
     public class Hooks:Base
     {
-        public Hooks()
+        private BrowserType _browserType;
+        public Hooks(BrowserType browserType)
         {
-            driver = new FirefoxDriver();
+            _browserType = browserType;
+        }
+
+        [SetUp] 
+        public void InitializeTest()
+        {
+            if (_browserType == BrowserType.Chrome) { driver = new ChromeDriver(); }
+            else if (_browserType == BrowserType.FF) { driver = new FirefoxDriver(); }
         }
     }
 }
