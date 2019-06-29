@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -13,7 +14,7 @@ namespace swd
 {
     class FirstTest
     {
-        [Test]
+        //[Test]
         public void osomTest()
         {
             IWebDriver driver = new ChromeDriver();
@@ -49,6 +50,28 @@ namespace swd
 
             
             
+            driver.Quit();
+        }
+
+        [Test]
+        public void jsTricksTest()
+        {
+            IWebDriver driver = new ChromeDriver();
+            driver.Navigate().GoToUrl("http://nhl.com");
+
+            //
+            //wait setup
+            TimeSpan span = new TimeSpan(0, 0, 10);
+            WebDriverWait wait = new WebDriverWait(driver, span);
+
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Official Site of the National Hockey League | NHL.com"));
+
+            Debug.WriteLine("NHL main page opened biatch!");
+
+            IWebElement title = driver.FindElement(By.XPath("/html/head/title"));
+
+            Assert.AreEqual(title.Text, "Official Site of the National Hockey League | NHL.com");
+
             driver.Quit();
         }
     }
