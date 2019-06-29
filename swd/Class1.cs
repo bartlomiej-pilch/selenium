@@ -68,9 +68,7 @@ namespace swd
 
             Debug.WriteLine("NHL main page opened biatch!");
 
-            IWebElement title = driver.FindElement(By.XPath("/html/head/title"));
-
-            Assert.AreEqual(title.Text, "Official Site of the National Hockey League | NHL.com");
+            Assert.AreEqual(driver.Title, "Official Site of the National Hockey League | NHL.com");
 
             driver.Quit();
         }
