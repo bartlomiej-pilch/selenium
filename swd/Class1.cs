@@ -12,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace swd
 {
-    class FirstTest
+    public class FirstTest : Hooks
     {
         //[Test]
         public void osomTest()
         {
-            IWebDriver driver = new ChromeDriver();
+            //IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://www.google.com");
 
 
@@ -69,6 +69,9 @@ namespace swd
             Debug.WriteLine("NHL main page opened biatch!");
 
             Assert.AreEqual(driver.Title, "Official Site of the National Hockey League | NHL.com");
+
+            //IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+
 
             driver.Quit();
         }
