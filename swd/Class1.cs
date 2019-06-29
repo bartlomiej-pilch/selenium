@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,12 @@ namespace swd
             IWebDriver driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://www.google.com");
 
+
             //IWebElement searchField = driver.FindElement(By.Name("q"));
+            TimeSpan span = new TimeSpan(0, 0, 0, 0, 2);
+
+            WebDriverWait wait = new WebDriverWait(driver, span);
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath("//input[@type='text']")));
             IWebElement searchField = driver.FindElement(By.XPath("//input[@type='text']"));
             searchField.SendKeys("chuju"+Keys.Enter);
 
@@ -30,20 +36,18 @@ namespace swd
             Assert.True(results.Displayed);
             Assert.True(pageSource.Contains("chuju - Szukaj w Google"));
 
-            /*try
-            {
-                Assert.IsFalse(results.Displayed, "google search gone wrong");
-            } catch (AssertionException a) { System.Console.Out.WriteLine(a.StackTrace.ToString()); }
-            */
 
-            try
+            
+         /*   try
             {
                 Thread.Sleep(2000);
             }
             catch (ThreadInterruptedException e)
             {
                 System.Console.Out.WriteLine( e.StackTrace.ToString());
-            }
+            }*/
+
+            
             
             driver.Quit();
         }
