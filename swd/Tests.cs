@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+using swd.PageObjects;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,6 +15,7 @@ namespace swd
 {
     [TestFixture]
     [Parallelizable]
+    [Category("FirefoxOnly")]
     public class FirefoxTesting : Hooks
     {
         public FirefoxTesting() : base(BrowserType.FF)
@@ -86,6 +88,7 @@ namespace swd
 
     [TestFixture]
     [Parallelizable]
+    [Category("ChromeOnly")]
     public class ChromeTesting : Hooks
     {
         public ChromeTesting() : base(BrowserType.Chrome)
@@ -93,26 +96,26 @@ namespace swd
         }
 
         [Test]
-        public void jsTricksTest()
+        public void nhlMainPageTest()
         {
-            //IWebDriver driver = new ChromeDriver();
-            driver.Navigate().GoToUrl("http://nhl.com");
 
-            //
-            //wait setup
-            TimeSpan span = new TimeSpan(0, 0, 10);
-            WebDriverWait wait = new WebDriverWait(driver, span);
+            Page page = new Page(driver);
+            NhlMainPage nhlMainPage = page.NavigateToNhlMainPage();
 
-            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains("Official Site of the National Hockey League | NHL.com"));
+            String expectedText = "Official Site of the National Hockey League | NHL.com";
+            nhlMainPage.waitForTitleTextInPageDOM(10, expectedText);
 
-            Debug.WriteLine("NHL main page opened biatch!");
+            nhlMainPage.Assertion(driver.Title, expectedText);
 
-            Assert.AreEqual(driver.Title, "Official Site of the National Hockey League | NHL.com");
+            PlayoffsPage playoffsPage = nhlMainPage.GoToPlayoffsPage();
 
-            //IJavaScriptExecutor jsExecutor = (IJavaScriptExecutor)driver;
+            String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
+            playoffsPage.waitForTitleTextInPageDOM(10, expectedTitleForPlayoffPage);
+
+            playoffsPage.Assertion(driver.Title, expectedTitleForPlayoffPage);
 
 
-            driver.Quit();
+
         }
     }
 }

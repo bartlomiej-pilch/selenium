@@ -26,5 +26,11 @@ namespace swd
             if (_browserType == BrowserType.Chrome) { driver = new ChromeDriver(); }
             else if (_browserType == BrowserType.FF) { driver = new FirefoxDriver(); }
         }
+
+        [TearDown]
+        public void ShutDown()
+        {
+            driver.Quit();
+        }
     }
 }
