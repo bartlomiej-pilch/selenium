@@ -91,28 +91,29 @@ namespace swd
     [Category("ChromeOnly")]
     public class ChromeTesting : Hooks
     {
+
         public ChromeTesting() : base(BrowserType.Chrome)
         {
         }
 
+
         [Test]
         public void nhlMainPageTest()
         {
-
-            Page page = new Page(driver);
-            NhlMainPage nhlMainPage = page.NavigateToNhlMainPage();
+            //Page page = new Page(driver);
+            NhlMainPage nhlMainPage =  Page.NavigateToNhlMainPage(driver);
 
             String expectedText = "Official Site of the National Hockey League | NHL.com";
-            nhlMainPage.waitForTitleTextInPageDOM(10, expectedText);
+            Page.waitForTitleTextInPageDOM(driver,10, expectedText);
 
-            nhlMainPage.Assertion(driver.Title, expectedText);
+            Page.Assertion(driver.Title, expectedText);
 
             PlayoffsPage playoffsPage = nhlMainPage.GoToPlayoffsPage();
 
             String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
-            playoffsPage.waitForTitleTextInPageDOM(10, expectedTitleForPlayoffPage);
+            Page.waitForTitleTextInPageDOM(driver,10, expectedTitleForPlayoffPage);
 
-            playoffsPage.Assertion(driver.Title, expectedTitleForPlayoffPage);
+            Page.Assertion(driver.Title, expectedTitleForPlayoffPage);
 
 
 

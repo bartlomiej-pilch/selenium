@@ -9,8 +9,10 @@ namespace swd.PageObjects
 {
     public class PlayoffsPage : Page
     {
-        public PlayoffsPage(IWebDriver driver) : base(driver)
+        public PlayoffsPage(IWebDriver driver):base(driver)
         {
+
         }
+
     }
 }

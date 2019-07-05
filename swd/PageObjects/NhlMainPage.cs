@@ -10,15 +10,16 @@ namespace swd
 {
     public class NhlMainPage : Page
     {
+
+        By playoffsLocator = By.XPath("//a[text()='Playoffs']");
+
         public NhlMainPage(IWebDriver driver) : base(driver)
         {
         }
 
-        By playoffsLocator = By.XPath("//a[text()='Playoffs']");
-
         public PlayoffsPage GoToPlayoffsPage()
         {
-            click(playoffsLocator);
+            Click(driver,playoffsLocator);
             return new PlayoffsPage(driver);
         }
     }

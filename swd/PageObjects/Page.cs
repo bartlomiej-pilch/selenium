@@ -11,23 +11,23 @@ namespace swd
 {
     public class Page
     {
-        protected IWebDriver driver;
+        public IWebDriver driver;
 
         public Page(IWebDriver driver)
         {
             this.driver = driver;
         }
 
-        public NhlMainPage NavigateToNhlMainPage()
+        public static NhlMainPage NavigateToNhlMainPage(IWebDriver driver)
         {
             String url = "http://nhl.com";
             Console.WriteLine("Opening page: " + url);
             driver.Navigate().GoToUrl(url);
-            Console.WriteLine("Page: " + url +" opened!");
+            Console.WriteLine("Page: " + url + " opened!");
             return new NhlMainPage(driver);
         }
 
-        public void waitForTitleTextInPageDOM(int secondsToWait, String expectedText)
+        public static void waitForTitleTextInPageDOM(IWebDriver driver,int secondsToWait, String expectedText)
         {
             TimeSpan span = new TimeSpan(0, 0, secondsToWait);
             WebDriverWait wait = new WebDriverWait(driver, span);
@@ -35,12 +35,12 @@ namespace swd
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains(expectedText));
         }
 
-        public void click(By by)
+        public static void Click(IWebDriver driver, By by)
         {
             driver.FindElement(by).Click();
         }
 
-        public void Assertion(String a, String b)
+        public static void Assertion(String a, String b)
         {
             Assert.That(a == b, "assertion fail");
         }
