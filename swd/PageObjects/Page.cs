@@ -18,7 +18,7 @@ namespace swd
             this.driver = driver;
         }
 
-        public static NhlMainPage NavigateToNhlMainPage(IWebDriver driver)
+        public NhlMainPage NavigateToNhlMainPage()
         {
             String url = "http://nhl.com";
             Console.WriteLine("Opening page: " + url);
@@ -27,7 +27,7 @@ namespace swd
             return new NhlMainPage(driver);
         }
 
-        public static void waitForTitleTextInPageDOM(IWebDriver driver,int secondsToWait, String expectedText)
+        public void waitForTitleTextInPageDOM(int secondsToWait, String expectedText)
         {
             TimeSpan span = new TimeSpan(0, 0, secondsToWait);
             WebDriverWait wait = new WebDriverWait(driver, span);
@@ -35,12 +35,12 @@ namespace swd
             wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.TitleContains(expectedText));
         }
 
-        public static void Click(IWebDriver driver, By by)
+        public void Click(By by)
         {
             driver.FindElement(by).Click();
         }
 
-        public static void Assertion(String a, String b)
+        public void Assertion(String a, String b)
         {
             Assert.That(a == b, "assertion fail");
         }

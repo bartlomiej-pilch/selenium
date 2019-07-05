@@ -100,20 +100,20 @@ namespace swd
         [Test]
         public void nhlMainPageTest()
         {
-            //Page page = new Page(driver);
-            NhlMainPage nhlMainPage =  Page.NavigateToNhlMainPage(driver);
+            Page page = new Page(driver);
+            NhlMainPage nhlMainPage =  page.NavigateToNhlMainPage();
 
             String expectedText = "Official Site of the National Hockey League | NHL.com";
-            Page.waitForTitleTextInPageDOM(driver,10, expectedText);
+            page.waitForTitleTextInPageDOM(10, expectedText);
 
-            Page.Assertion(driver.Title, expectedText);
+            page.Assertion(driver.Title, expectedText);
 
             PlayoffsPage playoffsPage = nhlMainPage.GoToPlayoffsPage();
 
             String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
-            Page.waitForTitleTextInPageDOM(driver,10, expectedTitleForPlayoffPage);
+            page.waitForTitleTextInPageDOM(10, expectedTitleForPlayoffPage);
 
-            Page.Assertion(driver.Title, expectedTitleForPlayoffPage);
+            page.Assertion(driver.Title, expectedTitleForPlayoffPage);
 
 
 

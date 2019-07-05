@@ -19,7 +19,7 @@ namespace swd
 
         public PlayoffsPage GoToPlayoffsPage()
         {
-            Click(driver,playoffsLocator);
+            Click(playoffsLocator);
             return new PlayoffsPage(driver);
         }
     }
