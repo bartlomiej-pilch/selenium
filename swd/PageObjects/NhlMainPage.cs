@@ -6,21 +6,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace swd
+namespace swd.PageObjects
 {
-    public class NhlMainPage : Page
+    public class NhlMainPage : BasePage
     {
-
-        By playoffsLocator = By.XPath("//a[text()='Playoffs']");
-
-        public NhlMainPage(IWebDriver driver) : base(driver)
+        public NhlMainPage(BrowserType browserType) : base(browserType)
         {
         }
 
-        public PlayoffsPage GoToPlayoffsPage()
+        public void NavigateToNhlMainPage()
         {
+            String url = "http://nhl.com";
+            Console.WriteLine("Opening page: " + url);
+            Driver.Navigate().GoToUrl(url);
+            String expectedText = "Official Site of the National Hockey League | NHL.com";
+            waitForTitleTextInPageDOM(10, expectedText);
+            Console.WriteLine("Page: " + url + " opened!");
+        }
+
+        public NhlPlayoffsPage GoToPlayoffsPage()
+        {
+
             Click(playoffsLocator);
-            return new PlayoffsPage(driver);
+            String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
+            waitForTitleTextInPageDOM(10, expectedTitleForPlayoffPage);
+            return new NhlPlayoffsPage(Driver);
         }
     }
 
