@@ -1,19 +1,10 @@
 ﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using swd.PageObjects;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace swd.Tests
 {
-    public class NhlMainPageTestsFirefox
+    public class NhlMainPageTests
     {
         [Test]
         [Parallelizable]

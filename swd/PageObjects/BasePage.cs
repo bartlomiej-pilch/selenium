@@ -19,6 +19,9 @@ namespace swd.PageObjects
         protected IWebDriver Driver { get; set; }
         public string Title { get { return Driver.Title; } }
 
+        [FindsBy(How = How.XPath, Using = "//a[text()='Playoffs']")]
+        public IWebElement playoffsLocator;
+
         public BasePage(IWebDriver driver)
         {
             Driver = driver;
@@ -28,6 +31,7 @@ namespace swd.PageObjects
         {
             BrowserType = browserType;
             InitializeDriver();
+            InitializePageFactoryObjects();
         }
 
         private void InitializeDriver()
@@ -44,13 +48,12 @@ namespace swd.PageObjects
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        private void InitializePageFactoryObjects()
+        {
+            SeleniumExtras.PageObjects.PageFactory.InitElements(Driver, this);
+        }
  
-
-        [FindsBy(How=How.XPath,Using = "//a[text()='Playoffs']")]
-        protected By playoffsLocator { get; set; }
-
-
-
         public void waitForTitleTextInPageDOM(int secondsToWait, String expectedText)
         {
             TimeSpan span = new TimeSpan(0, 0, secondsToWait);
@@ -75,7 +78,7 @@ namespace swd.PageObjects
             }
             catch (ElementNotInteractableException)
             {
-                Click(Driver.FindElement(playoffsLocator));
+                Click(Driver.FindElement(by));
             }
         }
 
@@ -85,6 +88,7 @@ namespace swd.PageObjects
             executor.ExecuteScript("arguments[0].click();", element);
             Console.WriteLine("jsClick applied!");
         }
+
 
         public void Assertion(String a, String b)
         {

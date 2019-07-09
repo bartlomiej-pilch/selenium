@@ -17,10 +17,10 @@ namespace swd.PageObjects
         {
         }
 
-        public void waitForPlayoffsButtonToBeClickable()
-        {
-            waitForElementToBeVisible(10, playoffsLocator);
-        }
+        //public void waitForPlayoffsButtonToBeClickable()
+        //{
+        //    waitForElementToBeVisible(10, playoffsLocator);
+        //}
 
     }
 }

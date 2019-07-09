@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
 using swd.PageObjects;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,11 @@ namespace swd.PageObjects
 {
     public class NhlMainPage : BasePage
     {
+
+
         public NhlMainPage(BrowserType browserType) : base(browserType)
         {
+
         }
 
         public void NavigateToNhlMainPage()
@@ -26,8 +30,7 @@ namespace swd.PageObjects
 
         public NhlPlayoffsPage GoToPlayoffsPage()
         {
-
-            Click(playoffsLocator);
+            playoffsLocator.Click();
             String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
             waitForTitleTextInPageDOM(10, expectedTitleForPlayoffPage);
             return new NhlPlayoffsPage(Driver);

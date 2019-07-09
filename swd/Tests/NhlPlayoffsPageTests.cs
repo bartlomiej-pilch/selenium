@@ -1,40 +1,39 @@
-﻿//using NUnit.Framework;
-//using swd.PageObjects;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
+﻿using NUnit.Framework;
+using swd.PageObjects;
+using System;
 
-//namespace swd.Tests
-//{
-//    public class NhlPlayoffsPageTestsFiregox : FirefoxTesting
-//    {
-//        [Test]
-//        public void shouldNavigateToPlayoffsPageFirefox()
-//        {
-//            NhlMainPage nhlMainPage = new NhlMainPage(BrowserType.Chrome);
-//            nhlMainPage.NavigateToNhlMainPage();
-//            NhlPlayoffsPage nhlPlayoffsPage = new NhlPlayoffsPage(driver);
-//            nhlMainPage.GoToPlayoffsPage();
+namespace swd.Tests
+{
+    public class NhlPlayoffsPageTests
+    {
+        [Test]
+        [Parallelizable]
+        [Category("FirefoxOnly")]
+        public void shouldNavigateToPlayoffsPageFirefox()
+        {
+            executeTest(BrowserType.FF);
+        }
 
-//            String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
-//            nhlPlayoffsPage.Assertion(nhlMainPage.Title, expectedTitleForPlayoffPage);
-//        }
+        [Test]
+        [Parallelizable]
+        [Category("ChromeOnly")]
+        public void shouldNavigateToPlayoffsPageChrome()
+        {
+            executeTest(BrowserType.Chrome);
+        }
 
-//    }
-//    //public class NhlPlayoffsPageTestsChrome : ChromeTesting
-//    //{
-//    //    [Test]
-//    //    public void shouldNavigateToPlayoffsPageChrome()
-//    //    {
-//    //        NhlMainPage nhlMainPage = new NhlMainPage(driver);
-//    //        nhlMainPage.NavigateToNhlMainPage();
 
-//    //        NhlPlayoffsPage nhlPlayoffsPage = nhlMainPage.GoToPlayoffsPage();
+        public void executeTest(BrowserType browserType)
+        {
+            NhlMainPage nhlMainPage = new NhlMainPage(browserType);
+            nhlMainPage.NavigateToNhlMainPage();
 
-//    //        String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
-//    //        nhlPlayoffsPage.Assertion(driver.Title, expectedTitleForPlayoffPage);
-//    //    }
-//    //}
-//}
+            NhlPlayoffsPage nhlPlayoffsPage = nhlMainPage.GoToPlayoffsPage();
+
+            String expectedTitleForPlayoffPage = "Stanley Cup Playoffs | NHL.com";
+            nhlPlayoffsPage.Assertion(nhlPlayoffsPage.Title, expectedTitleForPlayoffPage);
+
+        }
+    }
+
+}
